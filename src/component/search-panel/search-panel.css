@@ -1,0 +1,11 @@
+.search-panel {
+  margin: 1rem 0;
+  justify-content: space-between;
+}
+
+.search-panel .search-input {
+  min-width: 200px;
+  width: 35em;
+  flex-grow: 1;
+  margin-right: 3px;
+}
