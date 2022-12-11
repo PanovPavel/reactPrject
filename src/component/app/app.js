@@ -6,6 +6,13 @@ import PostList from "../post-list/post-list";
 import PostAddForm from "../post-add-form/post-add-form";
 import './app.css'
 const App = ()=>{
+    let data = [
+        { id: 1, textPost: 'Первый', impotent: true, like: false},
+        { id: 2, textPost: 'Второй', impotent: false, like: true},
+        { id: 3, textPost: 'Третий пост', impotent: true, like: true },
+        { id: 4, textPost: 'Четвёртый', impotent: true, like: true},
+        { id: 5, textPost: 'Пятый', impotent: false, like: false}
+    ];
     return(
         <div className='app'>
             <Header/>
@@ -13,7 +20,7 @@ const App = ()=>{
                 <Search/>
                 <PostFilter/>
             </div>
-            <PostList/>
+            <PostList posts={data}/>
             <PostAddForm/>
         </div>
     )
