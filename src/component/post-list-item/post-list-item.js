@@ -22,6 +22,7 @@ class PostListItem extends React.Component{
         }))
     }
     render() {
+        const {onDelete} = this.props;
 
         return(
             <li  className={`d-flex justify-content-between app-list-item`}>
@@ -31,7 +32,7 @@ class PostListItem extends React.Component{
                     <button onClick={this.changeImpotent} className='btn-star btn-sn'>
                         <span className={`fa fa-star ${this.state.impotent ? 'important' : ''}`} aria-hidden="true">{`\u2605`}</span>
                     </button>
-                    <button onClick={this.props.onDelete} className='btn-trash btn-sn'>
+                    <button onClick={onDelete} className='btn-trash btn-sn'>
                         <span className='fa fa-trash-o'><img src={deleteImg} width={'20px'} height={'20px'}/></span>
                     </button>
                     <button onClick={this.onLike} className={`btn-trash btn-sn  ${this.state.like?'hidden':''}`}>
