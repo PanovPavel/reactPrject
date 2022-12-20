@@ -1,5 +1,6 @@
 import React from "react";
-import './post-list-item.css'
+import './asdda.scss'
+import deleteImg from './img/delete.png'
 class PostListItem extends React.Component{
     constructor(props) {
         super(props);
@@ -28,13 +29,13 @@ class PostListItem extends React.Component{
 
                 <div className='d-flex justify-content align-items-center'>
                     <button onClick={this.changeImpotent} className='btn-star btn-sn'>
-                        <i className={`fa fa-star ${this.state.impotent ? 'important' : ''}`} aria-hidden="true">{`\u2605`}</i>
+                        <span className={`fa fa-star ${this.state.impotent ? 'important' : ''}`} aria-hidden="true">{`\u2605`}</span>
                     </button>
-                    <button className='btn-trash btn-sn'>
-                        <i className='fa fa-trash-o'>{'\u1F5D1'}</i>
+                    <button onClick={this.props.onDelete} className='btn-trash btn-sn'>
+                        <span className='fa fa-trash-o'><img src={deleteImg} width={'20px'} height={'20px'}/></span>
                     </button>
                     <button onClick={this.onLike} className={`btn-trash btn-sn  ${this.state.like?'hidden':''}`}>
-                        <i className='fa fa-trash-o'>{'\u2764'}</i>
+                        <span className='fa fa-trash-o'>{'\u2764'}</span>
                     </button>
                 </div>
             </li>

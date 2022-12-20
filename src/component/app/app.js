@@ -20,7 +20,11 @@ const App = ()=>{
                 <Search/>
                 <PostFilter/>
             </div>
-            <PostList posts={data}/>
+            <PostList data={data}
+                      onDelete={(id)=>{
+                          console.log("App delete" + id);
+                      }}
+            />
             <PostAddForm/>
         </div>
     )

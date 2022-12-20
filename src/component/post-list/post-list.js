@@ -1,11 +1,17 @@
 import React from "react";
 import './post-list.css'
 import PostListItem from "../post-list-item/post-list-item";
-const PostList =  ({posts})=>{
-    let elements = posts.map((item)=>{
+
+const PostList =  ({data, onDelete})=>{
+    let elements = data.map((item)=>{
+        const {id, ...itemProps} = item;
         return (
-            <div>
-                <PostListItem textPost={item.textPost} impotent={item.impotent} key={item.id} like={item.like}/>
+            <div key={id}>
+                <PostListItem {...itemProps}
+                              onDelete={()=>{
+                                    onDelete(id);
+                              }}
+                />
             </div>
         )
     })
