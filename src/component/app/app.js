@@ -17,13 +17,28 @@ export default class App extends React.Component{
                 { id: 4, textPost: 'Четвёртый', impotent: true, like: true},
                 { id: 5, textPost: 'Пятый', impotent: false, like: false}
             ],
+            term: '',
         }
         this.maxId =  5;
-
         this.deleteData = this.deleteData.bind(this);
         this.onAddPost = this.onAddPost.bind(this);
         this.onLike = this.onLike.bind(this);
         this.onImpotent = this.onImpotent.bind(this);
+        this.onTermUpdate = this.onTermUpdate.bind(this);
+
+    }
+    searchPost (dates, term){
+        if(term === 0) return dates;
+        return dates.filter((item) =>{
+             return item.textPost.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) > -1
+        });
+    }
+    onTermUpdate(textTerm){
+        this.setState(state=>{
+            return{
+                term: textTerm
+            }
+        })
     }
     onLike(id){
         console.log("like" + id);
@@ -49,7 +64,6 @@ export default class App extends React.Component{
             }
         })
     }
-
     deleteData(id){
         this.setState(({data}) => {
             const index = data.findIndex(elem=>elem.id === id);
@@ -74,8 +88,9 @@ export default class App extends React.Component{
             }
         })
     }
+
     render() {
-        const {data} = this.state;
+        const {data, term} = this.state;
 
         const likeQty = data.filter((item)=>{
             if(item.like){return item}
@@ -85,14 +100,16 @@ export default class App extends React.Component{
             if(item.impotent){return item}
         }).length
 
+        const visiblePosts = this.searchPost(data, term);
         return (
             <div className='app'>
                 <Header dataLength={data.length} likeQty={likeQty} impotentQty={impotentQty}/>
                 <div className='search-panel d-flex'>
-                    <Search/>
+                    <Search onTermUpdate={(textTerm)=>this.onTermUpdate(textTerm)}/>
                     <PostFilter/>
                 </div>
-                <PostList data={data}
+                <PostList
+                    data={visiblePosts}
                           onDelete={(id) => {
                               this.deleteData(id);
                           }}

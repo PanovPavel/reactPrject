@@ -21,7 +21,7 @@ class PostListItem extends React.Component{
                         <span className='fa fa-trash-o'><img src={deleteImg} width={'20px'} height={'20px'}/></span>
                     </button>
                     <button onClick={onLike} className={`btn-trash btn-sn  ${like ? '' : 'hidden'}`}>
-                        <span className='fa fa-trash-o'>{'\u2764'}</span>
+                        <span className='fa fa-trash-o'>{`${like?`\u2764`:'\u2661'}`}</span>
                     </button>
                 </div>
             </li>

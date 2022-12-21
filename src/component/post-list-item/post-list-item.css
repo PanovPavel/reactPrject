@@ -56,9 +56,7 @@
     color: #FFD700;
 }
 .hidden{
-    /*visibility: hidden;*/
-    opacity: 0;
     visibility: hidden;
-    transition-property: opacity;
-    transition-duration: 0.2s;
+    background-color: black;
+    opacity: 0.1;
 }
