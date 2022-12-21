@@ -17,9 +17,11 @@ export default class App extends React.Component{
                 { id: 3, textPost: 'Третий пост', impotent: true, like: true },
                 { id: 4, textPost: 'Четвёртый', impotent: true, like: true},
                 { id: 5, textPost: 'Пятый', impotent: false, like: false}
-            ]
+            ],
         }
+        this.maxId =  5;
         this.deleteData = this.deleteData.bind(this);
+        this.onAddPost = this.onAddPost.bind(this);
     }
     deleteData(id){
         this.setState(({data}) => {
@@ -28,6 +30,21 @@ export default class App extends React.Component{
                 return{
                     data: newArr
                 }
+        })
+    }
+    onAddPost(text){
+        this.setState(({data}) => {
+            const newItem = {
+                id: ++this.maxId,
+                textPost:text,
+                important:false,
+                like: false,
+            }
+            const newArr = [...data];
+            newArr.push(newItem)
+            return{
+                data: newArr,
+            }
         })
     }
     render() {
@@ -41,11 +58,12 @@ export default class App extends React.Component{
                 </div>
                 <PostList data={data}
                           onDelete={(id) => {
-                              console.log("App delete" + id);
                               this.deleteData(id);
                           }}
                 />
-                <PostAddForm/>
+                    <PostAddForm onAddPost={
+                        (text)=>{this.onAddPost(text)}
+                    }/>
             </div>
         )
     }

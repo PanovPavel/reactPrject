@@ -1,12 +1,13 @@
 import React from "react";
 
-const PostAddForm = ()=>{
+const PostAddForm = (props)=>{
+    const {onAddPost} = props;
     return(
         <>
-            <form className='d-flex bottom-panel'>
+            <div className='d-flex bottom-panel'>
                 <input type='text' placeholder='Добавить пост' className='form-control new-post-label'/>
-                <button type='submit' className='btn btn-outline-secondary'>Добавить</button>
-            </form>
+                <button onClick={()=>{onAddPost("textPost")}} type='submit' className='btn btn-outline-secondary'>Добавить</button>
+            </div>
 
         </>
     )
