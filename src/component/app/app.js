@@ -18,6 +18,7 @@ export default class App extends React.Component{
                 { id: 5, textPost: 'Пятый', impotent: false, like: false}
             ],
             term: '',
+            likeFilter: false,
         }
         this.maxId =  5;
         this.deleteData = this.deleteData.bind(this);
@@ -25,13 +26,29 @@ export default class App extends React.Component{
         this.onLike = this.onLike.bind(this);
         this.onImpotent = this.onImpotent.bind(this);
         this.onTermUpdate = this.onTermUpdate.bind(this);
-
+        this.changeLikeFilter = this.changeLikeFilter.bind(this);
     }
-    searchPost (dates, term){
-        if(term === 0) return dates;
-        return dates.filter((item) =>{
-             return item.textPost.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) > -1
-        });
+    changeLikeFilter(likeFilter){
+        this.setState(state=>{
+            return{
+                likeFilter: likeFilter
+            }
+        })
+    }
+    searchPost (dates, term, likeFilter){
+        let findPosts;
+        if(term === 0) findPosts = dates;
+        else{
+            findPosts = dates.filter((item) => {
+                return (item.textPost.toLocaleLowerCase().indexOf(term.toLocaleLowerCase())) > -1
+            });
+        }
+        if(likeFilter){
+            return findPosts.filter((item)=>item.like === true);
+        }
+        else if(likeFilter == false){
+            return findPosts;
+        }
     }
     onTermUpdate(textTerm){
         this.setState(state=>{
@@ -90,7 +107,8 @@ export default class App extends React.Component{
     }
 
     render() {
-        const {data, term} = this.state;
+        const {data, term, likeFilter} = this.state;
+        const visiblePosts = this.searchPost(data, term, likeFilter);
 
         const likeQty = data.filter((item)=>{
             if(item.like){return item}
@@ -100,13 +118,12 @@ export default class App extends React.Component{
             if(item.impotent){return item}
         }).length
 
-        const visiblePosts = this.searchPost(data, term);
         return (
             <div className='app'>
                 <Header dataLength={data.length} likeQty={likeQty} impotentQty={impotentQty}/>
                 <div className='search-panel d-flex'>
                     <Search onTermUpdate={(textTerm)=>this.onTermUpdate(textTerm)}/>
-                    <PostFilter/>
+                    <PostFilter changeLikeFilter={(likeFilter)=>{this.changeLikeFilter(likeFilter)}}/>
                 </div>
                 <PostList
                     data={visiblePosts}
